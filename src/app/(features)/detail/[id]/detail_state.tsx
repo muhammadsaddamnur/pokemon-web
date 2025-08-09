@@ -4,19 +4,19 @@ import { GetPokemonDetailUseCase } from "../domain/usecases/get_pokemon_detail_u
 import { DetailRepositoryImpl } from "../data/repositories/detail_repository_impl";
 
 interface DetailState {
-  pokemon: PokemonDetailEntity[];
+  pokemon: PokemonDetailEntity | null;
   loading: boolean;
-  fetchPokemon: () => Promise<void>;
+  fetchPokemon: (id: number) => Promise<void>;
   reset: () => void;
 }
 
-export const useDetailState = create<DetailState>((set, get) => ({
-  pokemon: {},
+export const useDetailState = create<DetailState>((set) => ({
+  pokemon: null,
   loading: false,
   offset: 0,
   limit: 50,
 
-  fetchPokemon: async (id: string) => {
+  fetchPokemon: async (id: number) => {
     try {
       set({ loading: true });
 
@@ -24,7 +24,7 @@ export const useDetailState = create<DetailState>((set, get) => ({
       const usecase = new GetPokemonDetailUseCase(repo);
       const data = await usecase.execute(id);
 
-      set((state) => {
+      set(() => {
         return {
           pokemon: data,
           loading: false,
@@ -36,5 +36,5 @@ export const useDetailState = create<DetailState>((set, get) => ({
     }
   },
 
-  reset: () => set({ pokemon: {} }),
+  reset: () => set({ pokemon: null }),
 }));

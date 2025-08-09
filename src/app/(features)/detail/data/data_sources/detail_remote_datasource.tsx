@@ -1,3 +1,5 @@
+import { PokemonDetailEntity } from '../../domain/entities/pokemon_detail_entity';
+
 export class DetailRemoteDatasource {
   async fetchPokemonDetail(id: number): Promise<PokemonDetailEntity> {
     const res = await fetch("https://pokeapi.co/api/v2/pokemon/" + id);

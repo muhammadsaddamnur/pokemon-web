@@ -12,9 +12,9 @@ export default function DetailPage() {
   const id = useParams().id;
 
   useEffect(() => {
-    fetchPokemon(id);
-  }, [id]);
-
+    fetchPokemon(Number(id));
+  }, [id, fetchPokemon]);
+  
   if (!pokemon) {
     return <div>Loading...</div>;
   }
@@ -62,11 +62,11 @@ export default function DetailPage() {
             <div className="text-gray-600">
               {pokemon?.species ? (
                 <>
-                  <span>species: {pokemon.species.name}</span>
+                  <span>species: {pokemon?.species?.name ? pokemon.species.name : ""}</span>
                   <br />
-                  <span>height: {pokemon.height / 10} m</span>
+                  <span>height: {pokemon?.height ? pokemon.height / 10 : 0} m</span>
                   <br />
-                  <span>weight: {pokemon.weight / 10} kg</span>
+                  <span>weight: {pokemon?.weight ? pokemon.weight / 10 : 0} kg</span>
                 </>
               ) : (
                 <div className="animate-pulse">
@@ -81,10 +81,10 @@ export default function DetailPage() {
               {pokemon?.types ? (
                 pokemon.types.map((type) => (
                   <span
-                    key={type.type.name}
+                    key={type?.type?.name}
                     className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full"
                   >
-                    {type.type.name}
+                    {type?.type?.name}
                   </span>
                 ))
               ) : (
@@ -100,10 +100,10 @@ export default function DetailPage() {
               <div className="flex flex-wrap space-x-2">
                 {pokemon.abilities.map((ability) => (
                   <span
-                    key={ability.ability.name}
+                    key={ability?.ability?.name}
                     className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full"
                   >
-                    {ability.ability.name}
+                    {ability?.ability?.name}
                   </span>
                 ))}
               </div>
@@ -122,15 +122,15 @@ export default function DetailPage() {
               {pokemon?.stats ? (
                 <div>
                   {pokemon.stats.map((stat) => (
-                    <div key={stat.stat.name}>
+                    <div key={stat?.stat?.name}>
                       <div className="flex justify-between text-gray-500">
-                        <span>{stat.stat.name}</span>
-                        <span>{stat.base_stat}</span>
+                        <span>{stat?.stat?.name ? stat.stat.name : ""}</span>
+                        <span>{stat?.base_stat ? stat.base_stat : 0}</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-4">
                         <div
                           className="bg-green-600 h-4 rounded-full"
-                          style={{ width: `${stat.base_stat}%` }}
+                          style={{ width: `${stat?.base_stat ? stat.base_stat : 0}%` }}
                         ></div>
                       </div>
                     </div>
@@ -152,10 +152,10 @@ export default function DetailPage() {
               <div className="flex flex-wrap space-x-2 space-y-2">
                 {pokemon.moves.map((move) => (
                   <span
-                    key={move.move.name}
+                    key={move?.move?.name}
                     className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full"
                   >
-                    {move.move.name}
+                    {move?.move?.name}
                   </span>
                 ))}
               </div>

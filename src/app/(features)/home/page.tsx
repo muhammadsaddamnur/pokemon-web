@@ -4,17 +4,14 @@ import Image from "next/image";
 import Sidebar from "@/app/components/sidebar";
 
 import { useEffect } from "react";
-import { PokemonEntity } from "./domain/entities/pokemon_entity";
-import { HomeRepositoryImpl } from "./data/repositories/home_repository_impl";
-import { GetPokemonListUseCase } from "./domain/usecases/get_pokemon_list_usecase";
 import { useHomeState } from "./home_state";
 
 export default function HomePage() {
-  const { pokemons, loading, fetchPokemons, offset } = useHomeState();
+  const { pokemons, loading, fetchPokemons } = useHomeState();
 
   useEffect(() => {
     fetchPokemons();
-  }, []);
+  }, [fetchPokemons]);
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-full">
