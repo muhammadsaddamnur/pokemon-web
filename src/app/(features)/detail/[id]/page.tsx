@@ -36,7 +36,7 @@ export default function DetailPage() {
               {pokemon?.id ? (
                 <Image
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-                  alt={`${name}`}
+                  alt={`${pokemon.name || 'Pokemon'}`}
                   fill
                   className="object-cover"
                 />
